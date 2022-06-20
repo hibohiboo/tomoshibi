@@ -11,15 +11,17 @@ const container = document.getElementById(elementId)
 
 if (!container) throw Error(`${elementId} の id を持つ要素がHTMLにありません`)
 const root = ReactDOMClient.createRoot(container)
-root.render(
-  <Router>
-    <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Provider>
-  </Router>,
-)
+const render = () => {
+  root.render(
+    <Router>
+      <Provider store={store}>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </Provider>
+    </Router>,
+  )
+}
 
 const isDevevelopServe = import.meta.env.MODE === 'development' // import.meta.env.DEV
 
@@ -27,3 +29,14 @@ const isDevevelopServe = import.meta.env.MODE === 'development' // import.meta.e
 const reportTo = console.log // isDevevelopServe ? console.log : sendToGoogleAnalytics
 
 reportWebVitals(reportTo)
+if (import.meta.env.DEV) {
+  ;(async () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { worker } = await import('./domain/http/mocks/browser')
+    worker.start()
+    render()
+  })()
+} else {
+  render()
+}

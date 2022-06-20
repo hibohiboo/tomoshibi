@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useGetValueQuery } from '@/store/api'
 
 const Wrapper = styled.div`
   --txt-color: #fff; /* opacity 0.9 のときの #fffの値 */
@@ -17,6 +18,12 @@ const Wrapper = styled.div`
 `
 
 const Top: React.FC = () => {
-  return <Wrapper>test</Wrapper>
+  const {
+    data = [],
+    isLoading,
+    isFetching,
+    isError,
+  } = useGetValueQuery({ from: '2022-06-01', to: '2022-06-15' })
+  return <Wrapper>{JSON.stringify(data)}</Wrapper>
 }
 export default Top
