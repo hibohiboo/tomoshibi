@@ -7,6 +7,8 @@ export const store = configureStore({
     userConfig: userConfigSlice.reducer,
     [api.reducerPath]: api.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 })
 
 // middlewareをいれないと、次のWarningが出る。
