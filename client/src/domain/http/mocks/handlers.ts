@@ -12,4 +12,8 @@ export const handlers = [
     }
     return res(ctx.status(200), ctx.json(req))
   }),
+  rest.get(`${domain}get-users-value`, (req, res, ctx) => {
+    // http://localhost:3000/get-users-value?from=2022-07-01&to=2022-07-03&users=1%2C2
+    return res(ctx.status(200), ctx.json(req))
+  }),
 ]

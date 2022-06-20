@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useGetValueQuery } from '@/store/api'
+import { TopHooks } from '@/hooks/top'
 
 const Wrapper = styled.div`
   --txt-color: #fff; /* opacity 0.9 のときの #fffの値 */
@@ -18,12 +18,12 @@ const Wrapper = styled.div`
 `
 
 const Top: React.FC = () => {
-  const {
-    data = [],
-    isLoading,
-    isFetching,
-    isError,
-  } = useGetValueQuery({ from: '2022-06-01', to: '2022-06-15' })
-  return <Wrapper>{JSON.stringify(data)}</Wrapper>
+  const { valueData, usersData } = TopHooks()
+  return (
+    <Wrapper>
+      <code>{JSON.stringify(valueData)}</code>
+      <pre>{JSON.stringify(usersData)}</pre>
+    </Wrapper>
+  )
 }
 export default Top
