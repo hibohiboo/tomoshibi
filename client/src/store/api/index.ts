@@ -13,6 +13,18 @@ export const api = createApi({
     >({
       query: (params) => ({ url: 'get-value', method: 'GET', params }),
     }),
+    getUsersValue: builder.query<
+      { date: string; value: number; user: string }[],
+      { from: string; to: string; users: string[] }
+    >({
+      query: (params) => ({ url: 'get-users-value', method: 'GET', params }),
+    }),
+    getUsersValue2: builder.query<
+      { date: string; value: number; user: string }[],
+      { from: string; to: string; users: string[] }
+    >({
+      query: (params) => ({ url: 'get-users-value', method: 'GET', params }),
+    }),
   }),
 })
-export const { useGetValueQuery } = api
+export const { useGetValueQuery, useGetUsersValueQuery } = api
