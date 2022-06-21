@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { api } from '@/store/api'
 import { TopHooks } from '@/hooks/top'
 
 const Wrapper = styled.div`
@@ -23,6 +24,7 @@ const Top: React.FC = () => {
     <Wrapper>
       <code>{JSON.stringify(valueData)}</code>
       <pre>{JSON.stringify(usersData)}</pre>
+      <div>{JSON.stringify(api.useGetUsersWithAUthQuery().error)}</div>
     </Wrapper>
   )
 }

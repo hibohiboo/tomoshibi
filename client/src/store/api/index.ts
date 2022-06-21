@@ -12,11 +12,27 @@ type AxiosParams = {
 const client = axios.create()
 const axiosBaseQuery =
   (
-    { baseUrl }: FetchBaseQueryArgs = { baseUrl: '' },
+    { baseUrl, prepareHeaders }: FetchBaseQueryArgs = {
+      baseUrl: '',
+    },
   ): BaseQueryFn<AxiosParams, unknown, unknown> =>
-  async ({ url, method, data, params }) => {
+  async ({ url, method, data, params }, api) => {
     try {
-      const result = await client({ url: baseUrl + url, method, data, params })
+      const preparedHeaders =
+        prepareHeaders == null
+          ? new Headers({})
+          : await prepareHeaders(new Headers({}), api)
+      const headers: Record<string, string> = {}
+      for (const [key, value] of preparedHeaders.entries()) {
+        headers[key] = value
+      }
+      const result = await client({
+        url: baseUrl + url,
+        method,
+        data,
+        params,
+        headers,
+      })
       return { data: result.data }
     } catch (axiosError) {
       const err = axiosError as AxiosError
@@ -33,6 +49,11 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: axiosBaseQuery({
     baseUrl: 'http://localhost:3000/',
+    prepareHeaders: (headers, api) => {
+      api.getState()
+      headers.set('x-api-key', 'todo')
+      return headers
+    },
   }),
   endpoints: (builder) => ({
     getValue: builder.query<
@@ -52,6 +73,15 @@ export const api = createApi({
       Record<string, string> // { from: string; to: string; users: string[] }
     >({
       query: (params) => ({ url: 'get-users-value', method: 'GET', params }),
+    }),
+    getUsersWithAUth: builder.query<
+      { date: string; value: number; user: string }[],
+      void
+    >({
+      query: () => ({
+        url: 'get-value-with-auth',
+        method: 'GET',
+      }),
     }),
   }),
 })

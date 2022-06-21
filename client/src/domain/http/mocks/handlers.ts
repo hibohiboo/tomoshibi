@@ -30,4 +30,10 @@ export const handlers = [
 
     return res(ctx.status(200), ctx.json(req))
   }),
+  rest.get(`${domain}get-value-with-auth`, (req, res, ctx) => {
+    if (!req.headers.get('x-api-key')) {
+      return res(ctx.status(401), ctx.json(req))
+    }
+    return res(ctx.status(200), ctx.json(req))
+  }),
 ]
