@@ -1,6 +1,7 @@
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import { terser } from 'rollup-plugin-terser'
 import { defineConfig } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // console.log(process.env)
 // https://vitejs.dev/config/
@@ -34,7 +35,17 @@ export default defineConfig({
   // esbuild: {
   //   jsxInject: `import React from 'react'`,
   // },
-  plugins: [reactRefresh(), terser({ compress: { drop_console: true } })],
+  plugins: [
+    reactRefresh(),
+    terser({ compress: { drop_console: true } }),
+    VitePWA({
+      srcDir: 'src',
+      filename: 'sw.ts',
+      devOptions: {
+        enabled: true,
+      },
+    }),
+  ],
   root: 'client',
   resolve: {
     // viteのホットリロードのために、/で始める必要がある。
