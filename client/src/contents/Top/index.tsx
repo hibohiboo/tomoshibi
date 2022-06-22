@@ -48,7 +48,7 @@ const Top: React.FC = () => {
               setRet(JSON.stringify(result))
             }}
           >
-            seed
+            select
           </button>
           <button onClick={() => db.export()}>export</button>
           <button onClick={() => db.load()}>load</button>
