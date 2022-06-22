@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { getOnMemoryDB } from '@/domain/sqlite'
+import type { OnMemorySQLite } from '@/domain/sqlite/OnMemorySQLite'
 
 const Wrapper = styled.div`
   --txt-color: #fff; /* opacity 0.9 のときの #fffの値 */
@@ -17,6 +19,43 @@ const Wrapper = styled.div`
 `
 
 const Top: React.FC = () => {
-  return <Wrapper>test</Wrapper>
+  const [db, setDB] = useState<OnMemorySQLite | null>(null)
+  const [ret, setRet] = useState('')
+  useEffect(() => {
+    ;(async () => {
+      setDB(await getOnMemoryDB())
+    })()
+  }, [])
+  return (
+    <Wrapper>
+      {!db ? (
+        <></>
+      ) : (
+        <div>
+          <button
+            onClick={() => {
+              db.run(` CREATE TABLE IF NOT EXISTS people (name TEXT, age INT);`)
+              db.run(
+                ` INSERT INTO people VALUES ('JOHNSON',4);INSERT INTO people VALUES ('JOHNSON',4);`,
+              )
+            }}
+          >
+            seed
+          </button>
+          <button
+            onClick={() => {
+              const result = db.exec(`SELECT * from people;`)
+              setRet(JSON.stringify(result))
+            }}
+          >
+            seed
+          </button>
+          <button onClick={() => db.export()}>export</button>
+          <button onClick={() => db.load()}>load</button>
+          <div>{ret}</div>
+        </div>
+      )}
+    </Wrapper>
+  )
 }
 export default Top
