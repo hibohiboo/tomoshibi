@@ -16,17 +16,17 @@ export default defineConfig({
           reactFamily: [
             'react-router-dom',
             'styled-components',
-            'react-icons',
-            'react-dropzone',
+            // 'react-icons',
+            // 'react-dropzone',
           ],
           rtk: ['react-redux', '@reduxjs/toolkit'],
           others: ['lodash', 'web-vitals', 'date-fns'],
-          firebase: [
-            'firebase/app',
-            'firebase/auth',
-            'firebase/analytics',
-            'firebase/firestore/lite',
-          ],
+          // firebase: [
+          //   'firebase/app',
+          //   'firebase/auth',
+          //   'firebase/analytics',
+          //   'firebase/firestore/lite',
+          // ],
         },
       },
     },
@@ -39,8 +39,8 @@ export default defineConfig({
     reactRefresh(),
     terser({ compress: { drop_console: true } }),
     VitePWA({
-      srcDir: 'src',
-      filename: 'sw.ts',
+      // srcDir: 'src',
+      // filename: 'sw.ts',
       devOptions: {
         enabled: true,
       },
