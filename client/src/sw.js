@@ -33,17 +33,16 @@ define(['./workbox-b3e22772'], function (e) {
   }),
     e.precacheAndRoute(
       [
-        { url: 'assets/index.ef330675.js', revision: null },
+        { url: 'assets/index.01acb311.js', revision: null },
         { url: 'assets/others.75052606.js', revision: null },
         { url: 'assets/react.890c30fa.js', revision: null },
         { url: 'assets/reactFamily.357558b2.js', revision: null },
         { url: 'assets/rtk.2613b31b.js', revision: null },
-        { url: 'index.html', revision: '0141cc6310f30470ebb3ed32be9e0438' },
+        { url: 'index.html', revision: '08efadc8e8265a847f024dbc02efd433' },
         {
           url: 'mockServiceWorker.js',
           revision: 'e053b9791c172d649dff822585356e94',
         },
-        { url: 'registerSW.js', revision: '1872c500de691dce40960bb85481de07' },
         {
           url: 'manifest.webmanifest',
           revision: 'ad6bab1cfac48cbb37a42aaab7f7e95f',

@@ -29,6 +29,7 @@
   "plugins": [{ "name": "typescript-styled-plugin" }],
   "include": [
     "client/src",
-    "client/tests"
+    "client/tests",
+    "node_modules/vite-plugin-pwa/client.d.ts" //  'virtual:pwa-register' のimport用
   ]
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import * as ReactDOMClient from 'react-dom/client'
+import { registerSW } from 'virtual:pwa-register'
 import reportWebVitals from '@/reportWebVitals'
 import App from '@/router/RoutesApp'
 import { store } from '@/store'
@@ -27,3 +28,6 @@ const isDevevelopServe = import.meta.env.MODE === 'development' // import.meta.e
 const reportTo = console.log // isDevevelopServe ? console.log : sendToGoogleAnalytics
 
 reportWebVitals(reportTo)
+
+// サービスワーカー登録
+registerSW()
