@@ -44,6 +44,43 @@ export default defineConfig({
       devOptions: {
         enabled: true,
       },
+
+      workbox: {
+        // globDirectory: './build/',
+        sourcemap: process.env.NODE_ENV !== 'production', // npm run dev で、ソースマップがない警告がchrome dev toolで出るため追加
+        runtimeCaching: [
+          {
+            urlPattern:
+              /^https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/sql\.js\/.*/i,
+            // urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'sql-wasm-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'sql-wasm-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
   root: 'client',
