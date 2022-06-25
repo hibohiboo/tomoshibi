@@ -1,4 +1,5 @@
 import reactRefresh from '@vitejs/plugin-react-refresh'
+import swc from 'rollup-plugin-swc'
 import { terser } from 'rollup-plugin-terser'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -31,11 +32,26 @@ export default defineConfig({
       },
     },
   },
+  esbuild: false, // reflect-metadata を使うためにesbuildの代わりにswcを導入
   // すべてのファイルにJSXヘルパーを挿入
   // esbuild: {
   //   jsxInject: `import React from 'react'`,
   // },
   plugins: [
+    swc({
+      jsc: {
+        parser: {
+          syntax: 'typescript',
+          tsx: true, // If you use react
+          dynamicImport: true,
+          decorators: true,
+        },
+        target: 'es2022',
+        transform: {
+          decoratorMetadata: true,
+        },
+      },
+    }),
     reactRefresh(),
     terser({ compress: { drop_console: true } }),
     VitePWA({
