@@ -20,7 +20,8 @@
       "@/*": ["./client/src/*"]
     },
     "experimentalDecorators": true, // アノテーションが使えるようにする
-    "emitDecoratorMetadata": true, // アノテーションが使えるようにする
+    // esbuildでは emitDecoratorMetadata は未対応
+    // "emitDecoratorMetadata": true, // アノテーションが使えるようにする
     "sourceMap": true
   },
   "plugins": [{ "name": "typescript-styled-plugin" }],

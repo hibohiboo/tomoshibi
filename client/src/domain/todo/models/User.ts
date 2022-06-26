@@ -10,10 +10,10 @@ import {
 
 @Entity()
 export class User extends BaseEntity {
-  @PrimaryColumn('text')
+  @PrimaryColumn({ type: 'text' })
   public id!: string
 
-  @Column()
+  @Column({ type: 'text' })
   public name!: string
 
   @CreateDateColumn()

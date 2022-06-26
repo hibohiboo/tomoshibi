@@ -1,14 +1,12 @@
 import { DataSource } from 'typeorm/browser'
-import { getOnMemoryDB } from '../sqlite'
 import { WASM_FILE_PATH } from '../sqlite/constants'
 import { initSQL } from '../sqlite/initSQL'
 import { User } from './models/User'
 import type { PromiseReturnType } from '@/types'
-import 'reflect-metadata'
 
 const initRepository = async () => {
-  const client = await getOnMemoryDB()
-  Object.assign(globalThis as any, { SQL: await initSQL(WASM_FILE_PATH) })
+  await initSQL(WASM_FILE_PATH)
+
   const conn = new DataSource({
     type: 'sqljs', // this connection search window.SQL on browser
     // database: ':memory:',
